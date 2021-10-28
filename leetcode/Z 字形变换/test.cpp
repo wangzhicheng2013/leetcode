@@ -14,25 +14,25 @@ public:
         std::vector<std::vector<char> >z_array;
         z_array.resize(numRows);
         for (int k = 0;k < size;) {
-            if (switch_flag && row < numRows - 1) {
-                z_array[row++].emplace_back(s[k++]);
-                continue;
-            }
-            if (numRows - 1 == row) {
+            z_array[row].emplace_back(s[k++]);
+            if (switch_flag && (numRows - 1 == row)) {
                 switch_flag = false;
             }
-            if (!switch_flag && row > 0) {
-                z_array[row--].emplace_back(s[k++]);
-                continue;
-            }
-            if (0 == row) {
+            if (!switch_flag && (0 == row)) {
                 switch_flag = true;
+            }
+            if (switch_flag) {
+                row++;
+            }
+            else {
+                row--;
             }
         }
         std::string rs;
         for (int loop = 0;loop < numRows;++loop) {
-            for (auto &ch : z_array[loop]) {
-                rs += ch;
+            size = z_array[loop].size();
+            if (size > 0) {
+                rs.append(&z_array[loop][0], size);
             }
         }
         return rs;
