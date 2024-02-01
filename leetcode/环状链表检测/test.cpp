@@ -2,7 +2,6 @@
 #include <set>
 struct ListNode {
     int val;
-    bool visited = false;
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 };
