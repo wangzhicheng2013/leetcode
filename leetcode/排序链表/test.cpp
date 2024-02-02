@@ -1,4 +1,5 @@
 #include <time.h>
+#include <sys/time.h>
 #include <iostream>
 #include <list>
 #include <cassert>
@@ -103,6 +104,8 @@ private:
     }
 public:
     ListNode* sortList(ListNode* head) {
+        struct timeval start_time, end_time;
+        gettimeofday(&start_time, NULL);
         ListNode* tmp_head = new ListNode;
         if (nullptr == tmp_head) {
             return nullptr;
@@ -135,6 +138,9 @@ public:
         }
         head = tmp_head->next;
         delete tmp_head;
+        gettimeofday(&end_time, NULL);
+        double time_used = (end_time.tv_sec - start_time.tv_sec) + (end_time.tv_usec - start_time.tv_usec) / 1000000.0;
+        printf("time elapse:%lfs\n", time_used); 
         return head;
     }
     ListNode* sortListMerge(ListNode* head) {
@@ -161,6 +167,6 @@ int main() {
     for (const auto& elem : ll) {
         std::cout << elem << std::endl;
     }
-     
+
     return 0;
 }
